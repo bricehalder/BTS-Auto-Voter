@@ -7,6 +7,8 @@ import PySimpleGUI as sg
 import sys
 import re
 import os
+import time
+import random
 
 if getattr(sys, 'frozen', False):
     # running in a bundle
@@ -44,15 +46,28 @@ browser.find_element_by_class_name('btn-auth-email').click()
 browser.implicitly_wait(10)
 browser.find_element_by_class_name('name-align').click()
 
+rng = random.SystemRandom()
+
+def norm_dist_crypt_rand_gen():
+    """
+    Generates a number that is normally distributed,
+    with mean = sum of two cryptographically secure random floating-point numbers [0, 1]
+    and std dev = cryptographically secure random floating-point number [0, 0.1]
+    """
+    return random.normalvariate(rng.random() + rng.random(), rng.random() * 0.1)
+
 while True:
     try:
         browser.implicitly_wait(10)
+        time.sleep(norm_dist_crypt_rand_gen())
         browser.find_element_by_xpath('//*[@id="TelescopeWidgetCategoryVote"]/div[1]/div/div/div/div/div[2]/ul/li[1]/div/div/div/div/button').click()
 
         browser.implicitly_wait(10)
+        time.sleep(norm_dist_crypt_rand_gen())
         browser.find_element_by_xpath('//*[@id="thankscat2-A1"]/div[2]/div[3]/button').click()
 
         browser.implicitly_wait(10)
+        time.sleep(norm_dist_crypt_rand_gen())
         browser.find_element_by_xpath('//*[@id="thankscat2-A1"]/div[2]/div[3]/button[3]').click()
     except:
         break
