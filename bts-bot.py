@@ -2,25 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select
-import datetime
-import os
 import sys
-
-browser = webdriver.Chrome('./chromedriver')
-browser.get(('https://bbma.votenow.tv/?initialWidth=984&childId=telescope_app&parentTitle=Vote%20for%20-%20Billboard%20Music%20Awards%202019%20%7C%20Billboard&parentUrl=https%3A%2F%2Fwww.billboard.com%2Fbbmasvote%23telescope_app'))
 
 email = 'REPLACE'
 
 try:
 	email = sys.argv[1]
-except BaseException:
+except:
 	print("\nError: This script should be run with the following flags:\n"
 	+ "python bts-bot.py email\n"
 	+ "ex: python bts-bot.py hello@example.com\n")
-	sys.exit(-1)
+	exit()
 
+browser = webdriver.Chrome('./chromedriver')
+browser.get(('https://bbma.votenow.tv/?initialWidth=984&childId=telescope_app&parentTitle=Vote%20for%20-%20Billboard%20Music%20Awards%202019%20%7C%20Billboard&parentUrl=https%3A%2F%2Fwww.billboard.com%2Fbbmasvote%23telescope_app'))
 
 WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "login")))
 browser.find_element_by_class_name("login").click()
@@ -29,6 +24,7 @@ WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "optin_1
 browser.find_element_by_id('optin_1').click()
 
 WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "btn-reveal-email")))
+browser.implicitly_wait(10)
 browser.find_element_by_class_name('btn-reveal-email').click()
 
 WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "form-control")))
