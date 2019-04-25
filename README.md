@@ -4,6 +4,17 @@ Voting for BTS for top social artist at 2019 BBMAs
 
 ## Usage
 
-`python bts-bot.py email`
+run the bundled executable in the dist folder
 
-ex: `python bts-bot.py hello@example.com`
+i.e. `open dist/bts-bot`
+
+or manually install and run
+
+```
+git clone https://github.com/bhalder2/BTS-Auto-Voter.git
+cd BTS-Auto-Voter
+pip install -r requirements.txt
+brew install chromedriver
+```
+
+`python bts-bot.py`
