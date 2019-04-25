@@ -6,6 +6,16 @@ from selenium.webdriver.support import expected_conditions as EC
 import PySimpleGUI as sg
 import sys
 import re
+import os
+
+if getattr(sys, 'frozen', False):
+    # running in a bundle
+    base_dir = sys._MEIPASS
+else:
+    # running normally
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+chromedriver_path = os.path.join(base_dir, 'chromedriver')
 
 email = sg.PopupGetText('Enter email address:', 'BTS Auto Voter',keep_on_top=True)
 
@@ -13,7 +23,7 @@ if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
     sg.Popup('Error: Please enter a valid email address', keep_on_top=True)
     exit()
 
-browser = webdriver.Chrome('./chromedriver')
+browser = webdriver.Chrome(chromedriver_path)
 browser.get(('https://bbma.votenow.tv/?initialWidth=984&childId=telescope_app&parentTitle=Vote%20for%20-%20Billboard%20Music%20Awards%202019%20%7C%20Billboard&parentUrl=https%3A%2F%2Fwww.billboard.com%2Fbbmasvote%23telescope_app'))
 
 browser.implicitly_wait(10)
